@@ -1,0 +1,45 @@
+// database
+datasource db {
+    provider = "sqlite"
+    url      = "file:database.db"
+}
+
+// generator
+generator client {
+    provider             = "prisma-client-py"
+    recursive_type_depth = 5
+}
+
+model Course {
+    id              String       @id @default(uuid())
+    name            String
+    byname          String
+    periodsQuantity Int
+    degree          String
+    discipline      Discipline[]
+    schoolClass     SchoolClass[]
+}
+
+model Discipline {
+    id              String  @id @default(uuid())
+    name            String
+    referencePeriod Int
+    code            String
+    isOptative      Boolean
+    courseId        String
+    course          Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+// enum Shift {
+// 	MORNING
+// 	AFTERNOON
+// 	NIGHT
+// }
+
+model SchoolClass {
+    id              String @id @default(uuid())
+    referencePeriod Int
+    shift           String
+    courseId        String
+    course          Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
