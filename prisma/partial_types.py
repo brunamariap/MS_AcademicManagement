@@ -1,4 +1,4 @@
-from prisma.models import Course, SchoolClass, Discipline
+from prisma.models import Course, SchoolClass, Discipline, Event
 
 
 Course.create_partial('CourseRequest', exclude=['id'], exclude_relational_fields=True)
@@ -9,3 +9,6 @@ SchoolClass.create_partial('SchoolClassResponse', exclude_relational_fields=True
 
 Discipline.create_partial('DisciplineRequest', exclude=['id'], exclude_relational_fields=True)
 Discipline.create_partial('DisciplineResponse', exclude_relational_fields=True)
+
+Event.create_partial('EventRequest', exclude=['id'], exclude_relational_fields=True)
+Event.create_partial('EventResponse', exclude_relational_fields=True)

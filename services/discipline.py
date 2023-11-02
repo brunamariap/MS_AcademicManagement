@@ -16,6 +16,9 @@ class DisciplineService:
     def get_by_id(self, id: str):
         return self.service.get_by_id(id)
     
+    def list_by_course(self, courseId: str):
+        pass
+    
     def change(self, id: str, request: DisciplineRequest):
         return self.service.change(id, request)
     

@@ -1,23 +1,23 @@
-from prisma.models import SchoolClass
-from prisma.partials import SchoolClassRequest
+from prisma.models import Event
+from prisma.partials import EventRequest
 
 
-class SchoolClassRepository:
+class EventRepository:
 
     def __init__(self):
-        self.repository = SchoolClass
+        self.repository = Event
 
-    def create(self, request: SchoolClassRequest):
+    def create(self, request: EventRequest):
         return self.repository.prisma().create(request)
 
     def get_all(self):
         return self.repository.prisma().find_many()
 
     def get_by_id(self, id: str):
-        return self.repository.prisma().find_unique({'id': id}, include={'course':True})
+        return self.repository.prisma().find_unique({'id': id})
 
-    def change(self, id: str, request: SchoolClassRequest):
+    def change(self, id: str, request: EventRequest):
         return self.repository.prisma().update(data=request, where={'id': id})
-    
+
     def remove(self, id: str):
         return self.repository.prisma().delete({'id': id})

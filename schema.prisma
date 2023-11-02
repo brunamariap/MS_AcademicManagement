@@ -11,7 +11,7 @@ generator client {
 }
 
 model Course {
-    id              String       @id @default(uuid())
+    id              String        @id @default(uuid())
     name            String
     byname          String
     periodsQuantity Int
@@ -42,4 +42,13 @@ model SchoolClass {
     shift           String
     courseId        String
     course          Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Event {
+    id          String   @id @default(uuid())
+    title       String
+    description String
+    startTime   DateTime
+    endTime     DateTime
+    createdBy   String
 }

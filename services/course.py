@@ -16,6 +16,12 @@ class CourseService:
     def get_by_id(self, id: str):
         return self.service.get_by_id(id)
     
+    def get_disciplines(self, courseId: str):
+        return self.service.get_disciplines(courseId)
+    
+    def get_classes(self, courseId: str):
+        return self.service.get_classes(courseId)
+    
     def change(self, id: str, request: CourseRequest):
         return self.service.change(id, request)
     
