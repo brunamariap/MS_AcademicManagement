@@ -13,7 +13,7 @@ class DisciplineRepository:
         return Discipline.prisma().find_many()
 
     def get_by_id(self, id: str):
-        pass
+        return Discipline.prisma().find_unique({'id': id})
 
     def change(self, id: str, request: DisciplineRequest):
         return Discipline.prisma().update(data=request, where={'id': id})

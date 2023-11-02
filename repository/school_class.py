@@ -13,7 +13,7 @@ class SchoolClassRepository:
         return SchoolClass.prisma().find_many()
 
     def get_by_id(self, id: str):
-        pass
+        return SchoolClass.prisma().find_unique({'id': id})
 
     def change(self, id: str, request: SchoolClassRequest):
         return SchoolClass.prisma().update(data=request, where={'id': id})
