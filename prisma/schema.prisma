@@ -53,3 +53,11 @@ model Event {
     endTime     DateTime
     createdBy   String
 }
+
+model Diary {
+    id              String   @id @default(uuid())
+    referencePeriod Int
+    referenceYear   Int
+    startDate       DateTime
+    endDate         DateTime
+}
