@@ -8,5 +8,5 @@ class TestBase:
     def setUp(self):
         prisma.connect()
         yield
-        prisma.execute_raw("DELETE FROM Course")
+        prisma.execute_raw('DELETE FROM "Course"')
         prisma.disconnect()

@@ -1,13 +1,7 @@
-from fastapi.testclient import TestClient
-from .test_base import TestBase
-from main import app
-from prisma.models import Diary
-from prisma.partials import DiaryRequest
-import datetime
 from services.diary import DiaryService
-
-client = TestClient(app)
-prefix = "/diaries"
+from .factories import DiaryFactory
+from .test_base import TestBase
+import datetime
 
 
 diaryService = DiaryService()
@@ -20,52 +14,30 @@ class TestApp(TestBase):
         assert len(response) >= 0
 
     def test_create_diary(self, setUp):
-        day = datetime.datetime.utcnow().isoformat() + 'Z'
-        diary = {
-            "referencePeriod": 2,
-            "referenceYear": 2023,
-            "startDate": day,
-            "endDate": day
-        }
+        factory = DiaryFactory()
 
-        response = diaryService.create(diary)
+        diary = diaryService.create(factory.dict())
         
-        assert response
+        assert diary.referencePeriod == factory.referencePeriod
+        assert diary.referenceYear == factory.referenceYear
 
     def test_edit_diary(self, setUp):
-        day = datetime.datetime.utcnow().isoformat() + 'Z'
-        diary = {
-            "referencePeriod": 2,
-            "referenceYear": 2023,
-            "startDate": day,
-            "endDate": day
-        }
+        factory = DiaryFactory()
 
-        edited_diary = {
-            "referencePeriod": 1,
-            "referenceYear": 2024,
-            "startDate": day,
-            "endDate": day
-        }
-
-        response_create_diary = diaryService.create(diary)
-        diary_id = response_create_diary.id 
+        diary = diaryService.create(factory.dict())
+        diary_id = diary.id
         
-        response = diaryService.change(diary_id, edited_diary)
+        edited_diary = DiaryFactory()
+        
+        response = diaryService.change(diary_id, edited_diary.dict())
         
         assert response
 
     def test_delete_diary(self, setUp):
-        day = datetime.datetime.utcnow().isoformat() + 'Z'
-        diary = {
-            "referencePeriod": 2,
-            "referenceYear": 2023,
-            "startDate": day,
-            "endDate": day
-        }
+        factory = DiaryFactory()
         
-        response_create_diary = diaryService.create(diary)
-        diary_id = response_create_diary.id
+        diary = diaryService.create(factory.dict())
+        diary_id = diary.id
 
         response = diaryService.remove(diary_id)
         
