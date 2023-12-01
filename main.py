@@ -3,7 +3,7 @@ from prisma import Prisma
 from controllers import course, discipline, school_class, event, diary
 
 
-app = FastAPI()
+app = FastAPI(title="MS Academic Management")
 app.include_router(course.router)
 app.include_router(discipline.router)
 app.include_router(school_class.router)

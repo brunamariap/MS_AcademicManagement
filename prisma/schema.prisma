@@ -43,6 +43,8 @@ model SchoolClass {
     shift           String
     courseId        String
     course          Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+    diaryId         String
+    diary           Diary  @relation(fields: [diaryId], references: [id], onDelete: Cascade)
 }
 
 model Event {
@@ -55,9 +57,10 @@ model Event {
 }
 
 model Diary {
-    id              String   @id @default(uuid())
+    id              String        @id @default(uuid())
     referencePeriod Int
     referenceYear   Int
     startDate       DateTime
     endDate         DateTime
+    SchoolClass     SchoolClass[]
 }
