@@ -17,29 +17,41 @@ def list_classes() -> List[SchoolClassResponse]:
 
 @router.get("/{id}/details")
 def get_class(id: str) -> List[SchoolClassResponse]:
-    response = class_service.get_by_id(id)
-    if not response:
-        return JSONResponse(content={"details": "Não foi encontrada turma com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
-		
-    return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+    try:
+        response = class_service.get_by_id(id)
+        if not response:
+            return JSONResponse(content={"details": "Não foi encontrada turma com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
+            
+        return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+    except Exception as error:
+        return JSONResponse(content=jsonable_encoder(error), status_code=status.HTTP_400_BAD_REQUEST)
 
 @router.post("/create")
 def insert_class(request: SchoolClassRequest) -> SchoolClassResponse:
-    response = class_service.create(request.dict())
+    try:
+        response = class_service.create(request.dict())
 
-    return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_201_CREATED)
+        return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_201_CREATED)
+    except Exception as error:
+        return JSONResponse(content=jsonable_encoder(error), status_code=status.HTTP_400_BAD_REQUEST)
 
 @router.put("/{id}/modify")
 def change_class(id: str, request: SchoolClassRequest) -> SchoolClassResponse:
-    response = class_service.change(id, request.dict())
+    try:
+        response = class_service.change(id, request.dict())
 
-    return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+        return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+    except Exception as error:
+        return JSONResponse(content=jsonable_encoder(error), status_code=status.HTTP_400_BAD_REQUEST)
 
 @router.delete("/remove")
 def remove_class(id: str) -> SchoolClassResponse:
-    response = class_service.remove(id)
-    
-    if not response:
-        return JSONResponse(content={"details": "Não foi encontrado uma turma com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
-    
-    return Response(content=None, status_code=status.HTTP_204_NO_CONTENT)
+    try:
+        response = class_service.remove(id)
+        
+        if not response:
+            return JSONResponse(content={"details": "Não foi encontrado uma turma com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
+        
+        return Response(content=None, status_code=status.HTTP_204_NO_CONTENT)
+    except Exception as error:
+        return JSONResponse(content=jsonable_encoder(error), status_code=status.HTTP_400_BAD_REQUEST)
