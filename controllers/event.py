@@ -60,7 +60,7 @@ def remove_event(id: str) -> EventResponse:
 @router.get("/{id}/students/all")
 def get_students_participated_event(id: str):
     try:
-        url = "http://127.0.0.1:8002/students/events/links/all"
+        url = "http://127.0.0.1:8000/student/students/events/links/all"
         response = requests.get(url=url, params={'eventId': id})    
 
         data = {
