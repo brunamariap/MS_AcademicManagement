@@ -11,7 +11,7 @@ class SchoolClassRepository:
         return self.repository.prisma().create(request)
 
     def get_all(self):
-        return self.repository.prisma().find_many()
+        return self.repository.prisma().find_many(include={'course': True, 'diary': True})
 
     def get_by_id(self, id: str):
         return self.repository.prisma().find_unique({'id': id}, include={'course':True})
