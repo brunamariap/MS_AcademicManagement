@@ -14,6 +14,9 @@ class DisciplineRepository:
         return self.repository.prisma().find_many(include={'course': True})
 
     def get_by_id(self, id: str):
+        return self.repository.prisma().find_unique({'id': id })
+    
+    def get_by_id_with_details(self, id: str):
         return self.repository.prisma().find_unique({'id': id}, include={'course': True})
 
     def change(self, id: str, request: DisciplineRequest):

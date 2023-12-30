@@ -15,10 +15,21 @@ def list_disciplines() -> List[DisciplineResponse]:
 
     return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
 
-@router.get("/{id}/details")
+@router.get("/{id}")
 def get_discipline(id: str) -> List[DisciplineResponse]:
     try:
-        response = discipline_service.get_by_id(id)
+        response = discipline_service.get_discipline(id)
+        if not response:
+            return JSONResponse(content={"details": "Não foi encontrada disciplina com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
+            
+        return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+    except Exception as error:
+        return JSONResponse(content=jsonable_encoder(error), status_code=status.HTTP_400_BAD_REQUEST)
+
+@router.get("/{id}/details")
+def get_discipline_details(id: str) -> List[DisciplineResponse]:
+    try:
+        response = discipline_service.get_discipline_with_details(id)
         if not response:
             return JSONResponse(content={"details": "Não foi encontrada disciplina com o id especificado"}, status_code=status.HTTP_404_NOT_FOUND)
             

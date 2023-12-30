@@ -5,22 +5,25 @@ from prisma.partials import DisciplineRequest
 class DisciplineService:
 
     def __init__(self):
-        self.service = DisciplineRepository()
+        self.repository = DisciplineRepository()
 
     def create(self, request: DisciplineRequest):
-        return self.service.create(request)
+        return self.repository.create(request)
 
     def get_all(self):
-        return self.service.get_all()
+        return self.repository.get_all()
     
-    def get_by_id(self, id: str):
-        return self.service.get_by_id(id)
+    def get_discipline(self, id: str):
+        return self.repository.get_by_id(id)
+    
+    def get_discipline_with_details(self, id: str):
+        return self.repository.get_by_id_with_details(id)
     
     def list_by_course(self, courseId: str):
         pass
     
     def change(self, id: str, request: DisciplineRequest):
-        return self.service.change(id, request)
+        return self.repository.change(id, request)
     
     def remove(self, id: str):
-        return self.service.remove(id)
+        return self.repository.remove(id)
