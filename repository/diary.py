@@ -17,3 +17,6 @@ class DiaryRepository:
 
     def remove(self, id: str):
         return Diary.prisma().delete({'id': id})
+
+    def count(self):
+        return Diary.prisma().count()

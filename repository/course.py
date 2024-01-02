@@ -27,3 +27,6 @@ class CourseRepository:
     
     def remove(self, id: str):
         return self.repository.prisma().delete({'id': id})
+    
+    def count(self):
+        return self.repository.prisma().count()

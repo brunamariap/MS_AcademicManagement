@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from prisma import Prisma
 from fastapi.middleware.cors import CORSMiddleware
-from controllers import course, discipline, school_class, event, diary
+from controllers import course, discipline, school_class, event, diary, utils
 
 
 app = FastAPI(title="MS Academic Management")
@@ -29,6 +29,7 @@ app.include_router(discipline.router)
 app.include_router(school_class.router)
 app.include_router(event.router)
 app.include_router(diary.router)
+app.include_router(utils.router)
 
 prisma = Prisma(auto_register=True)
 
