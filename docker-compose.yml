@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+    # academic_db:
+    #     container_name: ACADEMIC_DATABASE
+    #     image: postgres
+    #     environment:
+    #         POSTGRES_HOST: postgres
+    #         POSTGRES_DB: ACADEMIC_DATABASE
+    #         POSTGRES_PORT: 5432
+    #         POSTGRES_USER: admin
+    #         POSTGRES_PASSWORD: admpass
+    #     ports:
+    #         - 5432:5432
+    #     networks:
+    #         - production
+
+    academic_microservice:
+        container_name: MS_Academic
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8001:8001
+        command: 
+            - "/bin/bash"
+            - "-c"
+            - |
+                prisma migrate deploy
+                prisma generate
+                uvicorn main:app --host 0.0.0.0 --port 8001
+        # depends_on:
+        #     - academic_db
+        environment:
+            DATABASE_URL: postgresql://admin:admpass@db/NAPNE_DB
+        networks:
+            - production
+networks:
+    production:
