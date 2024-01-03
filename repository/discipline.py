@@ -27,3 +27,14 @@ class DisciplineRepository:
 
     def count(self):
         return self.repository.prisma().count()
+    
+    def get_class_disciplines(self, course_id: str, period: str):
+        return self.repository.prisma().find_many(where={
+            'courseId': course_id,
+            'referencePeriod': period
+        })
+    
+    def get_course_disciplines(self, course_id: str):
+        return self.repository.prisma().find_many(where={
+            'courseId': course_id,
+        })
