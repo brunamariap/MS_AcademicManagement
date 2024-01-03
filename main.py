@@ -7,13 +7,12 @@ from controllers import course, discipline, school_class, event, diary, utils
 app = FastAPI(title="MS Academic Management")
 
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
     "http://localhost",
     "http://localhost:8080",
     "http://localhost:8000",
     "http://localhost:3000",
     "*",
+    "https://napne-acompanha.vercel.app"
 ]
 
 app.add_middleware(
