@@ -6,6 +6,8 @@ from fastapi.responses import JSONResponse, Response
 from typing import List
 from fastapi import status
 import requests
+import os
+
 
 router = APIRouter(prefix="/events", tags=['Evento'])
 event_service = EventService()
@@ -60,7 +62,7 @@ def remove_event(id: str) -> EventResponse:
 @router.get("/{id}/students/all")
 def get_students_participated_event(id: str):
     try:
-        url = "http://127.0.0.1:8000/student/students/events/links/all"
+        url = f"{os.getenv('MS_STUDENT_URL', '127.0.0.1:8003')}/students/events/links/all"
         response = requests.get(url=url, params={'eventId': id})    
 
         data = {
