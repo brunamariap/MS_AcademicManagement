@@ -1,7 +1,8 @@
 from repository.discipline import DisciplineRepository
 from prisma.partials import DisciplineRequest
+from services.school_class import SchoolClassService
 
-
+schoolClass = SchoolClassService()
 class DisciplineService:
 
     def __init__(self):
@@ -27,3 +28,11 @@ class DisciplineService:
     
     def remove(self, id: str):
         return self.repository.remove(id)
+    
+    def list_all_class_disciplines(self, class_id: str):
+        school_class_data = schoolClass.get_by_id(class_id)
+
+        return self.repository.get_class_disciplines(school_class_data.courseId, school_class_data.referencePeriod)
+    
+    def list_all_course_disciplines(self, course_id: str):
+        return self.repository.get_course_disciplines(course_id)

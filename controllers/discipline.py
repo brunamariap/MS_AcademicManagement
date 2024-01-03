@@ -15,6 +15,18 @@ def list_disciplines() -> List[DisciplineResponse]:
 
     return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
 
+@router.get("/by-class/{class_id}/all")
+def list_disciplines_by_class(class_id: str) -> List[DisciplineResponse]:
+    response = discipline_service.list_all_class_disciplines(class_id)
+
+    return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+
+@router.get("/by-course/{course_id}/all")
+def list_disciplines_by_course(course_id: str) -> List[DisciplineResponse]:
+    response = discipline_service.list_all_course_disciplines(course_id)
+
+    return JSONResponse(content=jsonable_encoder(response), status_code=status.HTTP_200_OK)
+
 @router.get("/{id}")
 def get_discipline(id: str) -> List[DisciplineResponse]:
     try:
