@@ -24,7 +24,7 @@ model Course {
 model Discipline {
     id              String  @id @default(uuid())
     name            String
-    referencePeriod Int
+    referencePeriod Int?
     code            String
     isOptative      Boolean
     courseId        String
